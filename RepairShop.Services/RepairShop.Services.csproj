@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\RepairShop.Core\RepairShop.Core.csproj" />
+      <ProjectReference Include="..\RepairShop.Data\RepairShop.Data.csproj" />
     </ItemGroup>
 
 </Project>
