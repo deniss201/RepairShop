@@ -8,7 +8,6 @@ public class RepairRequest
     public User User { get; set; }
     public int UserId { get; set; }
     public Device Device { get; set; }
-    public int DeviceId { get; set; }
     public string Diagnosis { get; set; }
     public decimal Price { get; set; }
     public RepairStatus Status { get; set; }
