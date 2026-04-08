@@ -1,11 +1,60 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RepairShop.Core.Entities;
+using RepairShop.Core.Enums;
+using RepairShop.Core.Interfaces;
+using RepairShop.API.DTO;
 
-namespace RepaiShop.API.Controllers;
+namespace RepairShop.API.Controllers;
 
+[ApiController]
+[Route("api/RepairRequest")]
 public class RepairRequestController : ControllerBase
 {
-    public RepairRequestController()
+    private readonly IRepairRequestService _repairRequestService;
+    public RepairRequestController(IRepairRequestService repairRequestService)
     {
-        
+        _repairRequestService = repairRequestService;
     }
+
+    [HttpGet("{id}")]
+    public ActionResult<RepairRequest> GetRepairRequestById(int id)
+    {
+         return Ok((_repairRequestService.GetRepairRequestById(id)));
+    }
+    
+    
+    [HttpGet("")]
+    public ActionResult<IEnumerable<RepairRequest>> GetAllRepairRequests()
+    {
+        return Ok(_repairRequestService.GetAllRepairRequests());
+    }
+
+
+    [HttpPost("")]
+    public ActionResult<RepairRequest> CreateRepairRequest([FromBody] RepairRequest repairRequest)
+    {
+        return Ok(_repairRequestService.CreateRepairRequest(repairRequest));
+    }
+
+    
+    [HttpGet("user/{userId}")]
+    public ActionResult<IEnumerable<RepairRequest>> GetRepairRequestByUserId(int userId)
+    {
+        return Ok((_repairRequestService.GetRepairRequestByUserId(userId)));
+    }
+
+    [HttpPut("{id}/status")]
+    public ActionResult UpdateStatus(int id, [FromBody] RepairStatus repairStatus)
+    {
+        _repairRequestService.UpdateStatus(id, repairStatus);
+        return Ok();
+    }
+
+    [HttpPut("{id}/diagnosis-and-price")]
+    public ActionResult SetDiagnosisAndPrice(int id, [FromBody] DiagnosisRequest request)
+    {
+        _repairRequestService.SetDiagnosisAndPrice(id, request.Diagnosis, request.Price);
+        return Ok();
+    }
+
 }
