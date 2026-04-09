@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RepairShop.Core.Entities;
 using RepairShop.Core.Enums;
 using RepairShop.Core.Interfaces;
@@ -6,6 +7,7 @@ using RepairShop.API.DTO;
 
 namespace RepairShop.API.Controllers;
 
+[Authorize]
 [ApiController]
 [Route("api/RepairRequest")]
 public class RepairRequestController : ControllerBase
@@ -44,6 +46,7 @@ public class RepairRequestController : ControllerBase
     }
 
     [HttpPut("{id}/status")]
+    [Authorize(Roles = "Admin")]
     public ActionResult UpdateStatus(int id, [FromBody] RepairStatus repairStatus)
     {
         _repairRequestService.UpdateStatus(id, repairStatus);
@@ -51,6 +54,7 @@ public class RepairRequestController : ControllerBase
     }
 
     [HttpPut("{id}/diagnosis-and-price")]
+    [Authorize(Roles = "Admin")]
     public ActionResult SetDiagnosisAndPrice(int id, [FromBody] DiagnosisRequest request)
     {
         _repairRequestService.SetDiagnosisAndPrice(id, request.Diagnosis, request.Price);

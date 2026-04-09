@@ -1,9 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RepairShop.Core.Entities;
 using RepairShop.Core.Interfaces;
 
 namespace RepairShop.API.Controllers;
 
+[Authorize(Roles = "Admin")]
 [ApiController]
 [Route("api/Part")]
 

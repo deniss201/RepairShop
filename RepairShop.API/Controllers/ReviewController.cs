@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RepairShop.Core.Entities;
 using RepairShop.Core.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RepairShop.API.Controllers;
 
@@ -17,6 +18,7 @@ public class ReviewController: ControllerBase
         _reviewService = reviewService;
     }
     
+    [Authorize]
     [HttpPost("")]
     public ActionResult<Review> CreateReview([FromBody] Review review)
     {

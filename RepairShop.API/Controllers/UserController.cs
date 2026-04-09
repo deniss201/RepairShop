@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using RepairShop.API.DTO;
 using RepairShop.Core.Entities;
 using RepairShop.Core.Interfaces;
@@ -25,12 +26,14 @@ public class UserController : ControllerBase
     }
 
     [HttpGet("{id}")]
+    [Authorize]
     public ActionResult<User> GetUserById(int id)
     {
         return Ok(_userService.GetUserById(id));
     }
 
     [HttpGet("")]
+    [Authorize(Roles = "Admin")]
     public ActionResult<IEnumerable<User>> GetUsers()
     {
         return Ok(_userService.GetUsers());
